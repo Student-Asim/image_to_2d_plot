@@ -27,9 +27,10 @@ FURNITURE_CLASSES = {
     "tv": "table",
 }
 
-HORIZONNET_DIR = Path(os.getenv("HORIZONNET_DIR", str(ROOT_DIR.parent / "HorizonNet")))
-HORIZONNET_WEIGHTS = Path(os.getenv("HORIZONNET_WEIGHTS", str(HORIZONNET_DIR / "model.pth")))
-
+# HORIZONNET_DIR = Path(os.getenv("HORIZONNET_DIR", str(ROOT_DIR.parent / "HorizonNet")))
+# HORIZONNET_WEIGHTS = Path(os.getenv("HORIZONNET_WEIGHTS", str(HORIZONNET_DIR / "model.pth")))
+HORIZONNET_DIR = Path(__file__).resolve().parent
+HORIZONNET_WEIGHTS = ROOT_DIR / "model.pt"
 
 ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "OgUBvraBD702WWqYgfoC")
 ROBOFLOW_URL = os.getenv("ROBOFLOW_URL", "https://detect.roboflow.com/door-window-detection-pipvh/1")
