@@ -8,8 +8,8 @@ from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from PIL import Image, UnidentifiedImageError
 
-import config as C
-import pipeline as P
+from . import config as C
+from . import pipeline as P
 
 logging.basicConfig(
     level=logging.INFO,
