@@ -20,9 +20,7 @@ MagicPlan_2D_floor_plan/
 │   ├── pipeline.py
 │   ├── model.pth
 │   └── outputs/
-├── HorizonNet/
 │   ├── model.py
-│   └── ...
 ├── requirements.txt
 └── README.md
 ```
@@ -33,7 +31,7 @@ MagicPlan_2D_floor_plan/
 - `config.py` — central configuration using environment variables and defaults.
 - `pipeline.py` — end-to-end inference pipeline for layout, openings, and furniture.
 - `model.pth` — HorizonNet weights file.
-- `HorizonNet/model.py` — Python source that defines the `HorizonNet` architecture.
+- `model.py` — Python source that defines the `HorizonNet` architecture.
 - `outputs/` — generated PNG, DXF, and debug files. [web:184][web:190]
 
 ## How it works
@@ -108,7 +106,7 @@ pip install -r requirements.txt
 Make sure these files exist before starting the app:
 
 - `api_endpoint/model.pth` or the configured HorizonNet weights path
-- `HorizonNet/model.py`
+- `model.py`
 - FastAPI source files inside `api_endpoint/`
 
 ## Configuration
@@ -152,7 +150,7 @@ A common source of errors in this project is mixing up the `.pth` weights file w
 ### Correct idea
 
 - `model.pth` = trained weights
-- `HorizonNet/model.py` = Python code defining `HorizonNet`
+- `/model.py` = Python code defining `HorizonNet`
 
 ### Correct import in `pipeline.py`
 
@@ -307,6 +305,11 @@ scikit-learn>=1.4
 - Add request/response schema documentation.
 - Add batch processing for multiple panorama images.
 - Add persistent storage for processed jobs and artifacts.
+## Example
+- Input image
+![Project screenshot](assets/screenshot.png)
+- Output image
+![Project screenshot](assets/screenshot.png)
 
 ## License
 
