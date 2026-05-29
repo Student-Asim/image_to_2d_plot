@@ -1,7 +1,6 @@
 import io
 import logging
 import math
-import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -20,11 +19,11 @@ from scipy.signal import find_peaks
 from shapely.geometry import Point, Polygon
 from sklearn.cluster import DBSCAN
 from ultralytics import YOLO
-
-import config as C
-
+from .model import HorizonNet
+from . import config as C
 
 log = logging.getLogger("pipeline")
+
 _horizonnet_model = None
 _furniture_model = None
 
@@ -32,10 +31,8 @@ _furniture_model = None
 def load_models():
     global _horizonnet_model, _furniture_model
 
-    sys.path.append(str(C.HORIZONNET_DIR))
-    from model import HorizonNet
-
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     model = HorizonNet(backbone="resnet50", use_rnn=True).to(device)
     ckpt = torch.load(C.HORIZONNET_WEIGHTS, map_location=device)
     model.load_state_dict(ckpt.get("state_dict", ckpt), strict=True)
@@ -45,7 +42,6 @@ def load_models():
 
     _furniture_model = YOLO(C.YOLO_MODEL)
     log.info("Furniture YOLO loaded: %s", C.YOLO_MODEL)
-
 
 def run_horizonnet(img_pil: Image.Image):
     if _horizonnet_model is None:
