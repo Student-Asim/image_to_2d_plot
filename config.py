@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 ROOT_DIR = Path(__file__).resolve().parent
 
@@ -27,14 +30,17 @@ FURNITURE_CLASSES = {
     "tv": "table",
 }
 
-# HORIZONNET_DIR = Path(os.getenv("HORIZONNET_DIR", str(ROOT_DIR.parent / "HorizonNet")))
-# HORIZONNET_WEIGHTS = Path(os.getenv("HORIZONNET_WEIGHTS", str(HORIZONNET_DIR / "model.pth")))
-HORIZONNET_DIR = Path(__file__).resolve().parent
-HORIZONNET_WEIGHTS = ROOT_DIR / "model.pt"
+# HorizonNet is now local to api_endpoint/
+HORIZONNET_WEIGHTS = Path(
+    os.getenv("HORIZONNET_WEIGHTS", str(ROOT_DIR / "model.pth"))
+).resolve()
+HORIZONNET_API_KEY = os.getenv("HORIZONNET_API_KEY")
 
-ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "OgUBvraBD702WWqYgfoC")
-ROBOFLOW_URL = os.getenv("ROBOFLOW_URL", "https://detect.roboflow.com/door-window-detection-pipvh/1")
-
+ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY")
+ROBOFLOW_URL = os.getenv(
+    "ROBOFLOW_URL",
+    "https://detect.roboflow.com/door-window-detection-pipvh/1"
+)
 RF_CONNECT_TIMEOUT = int(os.getenv("RF_CONNECT_TIMEOUT", "20"))
 RF_READ_TIMEOUT = int(os.getenv("RF_READ_TIMEOUT", "60"))
 RF_RETRY_TOTAL = int(os.getenv("RF_RETRY_TOTAL", "3"))
@@ -43,7 +49,7 @@ RF_RETRY_READ = int(os.getenv("RF_RETRY_READ", "3"))
 RF_RETRY_BACKOFF = float(os.getenv("RF_RETRY_BACKOFF", "1.0"))
 RF_FAIL_SOFT = os.getenv("RF_FAIL_SOFT", "1") == "1"
 
-OUTPUT_DIR = Path(os.getenv("OUTPUT_DIR", str(ROOT_DIR / "outputs")))
+OUTPUT_DIR = Path(os.getenv("OUTPUT_DIR", str(ROOT_DIR / "outputs"))).resolve()
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 ROOM_SCALE = float(os.getenv("ROOM_SCALE", "5.0"))
@@ -59,7 +65,7 @@ MIN_EDGE_LEN = float(os.getenv("MIN_EDGE_LEN", "0.20"))
 
 TILE_W = int(os.getenv("TILE_W", "512"))
 
-CONF_THRESH = float(os.getenv("CONF_THRESH", "0.50 "))
+CONF_THRESH = float(os.getenv("CONF_THRESH", "0.50"))
 OVERLAP_THR = int(os.getenv("OVERLAP_THR", "60"))
 NMS_IOU = float(os.getenv("NMS_IOU", "0.25"))
 
@@ -67,7 +73,6 @@ DW_CLASS_CONF = {
     "door": float(os.getenv("DOOR_CONF_THRESH", "0.40")),
     "window": float(os.getenv("WINDOW_CONF_THRESH", "0.30")),
 }
-
 
 OVERLAP = int(os.getenv("OVERLAP", "192"))
 ALIGN_NEIGHBORHOOD_DEG = float(os.getenv("ALIGN_NEIGHBORHOOD_DEG", "10.0"))
